@@ -1,19 +1,18 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:goverment_service_app/Provider/Connect_Provider.dart';
 import 'package:goverment_service_app/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class BingPage extends StatefulWidget {
-  const BingPage({super.key});
+class YahooPage extends StatefulWidget {
+  const YahooPage({super.key});
 
   @override
-  State<BingPage> createState() => _BingPageState();
+  State<YahooPage> createState() => _YahooPageState();
 }
 
-class _BingPageState extends State<BingPage> {
+class _YahooPageState extends State<YahooPage> {
   InAppWebViewController? inAppWebViewController;
 
   String? group;
@@ -21,7 +20,7 @@ class _BingPageState extends State<BingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("My Browser"),
+        title: const Text("My Browser"),
         centerTitle: true,
         actions: [
           PopupMenuButton(
@@ -29,7 +28,7 @@ class _BingPageState extends State<BingPage> {
                     PopupMenuItem(
                       onTap: () {
                         Future.delayed(
-                            Duration(seconds: 0),
+                            const Duration(seconds: 0),
                             () => showModalBottomSheet(
                                 context: context,
                                 builder: (context) {
@@ -47,7 +46,7 @@ class _BingPageState extends State<BingPage> {
                                 }));
                       },
                       value: 1,
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.bookmark),
                           SizedBox(width: 20),
@@ -58,14 +57,14 @@ class _BingPageState extends State<BingPage> {
                     PopupMenuItem(
                       onTap: () {
                         Future.delayed(
-                          Duration(seconds: 0),
+                          const Duration(seconds: 0),
                           () => showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: Text("Search Engine"),
+                              title: const Text("Search Engine"),
                               alignment: Alignment.center,
                               content: Container(
-                                height: 200,
+                                height: 300,
                                 width: 400,
                                 child: Column(
                                   children: [
@@ -88,8 +87,8 @@ class _BingPageState extends State<BingPage> {
                                                       '/', (route) => false);
                                               Navigator.of(context).pop;
                                             }),
-                                        SizedBox(width: 20),
-                                        Text(
+                                        const SizedBox(width: 20),
+                                        const Text(
                                           "Google",
                                           style: TextStyle(fontSize: 16),
                                         )
@@ -108,11 +107,11 @@ class _BingPageState extends State<BingPage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
-                                              Navigator.of(context).pushNamedAndRemoveUntil('YahooPage', (route) => false);
+
                                               Navigator.of(context).pop;
                                             }),
-                                        SizedBox(width: 20),
-                                        Text(
+                                        const SizedBox(width: 20),
+                                        const Text(
                                           "Yahoo",
                                           style: TextStyle(fontSize: 16),
                                         )
@@ -131,10 +130,15 @@ class _BingPageState extends State<BingPage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
+
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'BingPage',
+                                                      (route) => false);
                                               Navigator.of(context).pop;
                                             }),
-                                        SizedBox(width: 20),
-                                        Text(
+                                        const SizedBox(width: 20),
+                                        const Text(
                                           "Bing",
                                           style: TextStyle(fontSize: 16),
                                         )
@@ -153,17 +157,46 @@ class _BingPageState extends State<BingPage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
-
-                                              Navigator.of(context).pushNamedAndRemoveUntil('DuckDuckPage', (route) => false);
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'DuckDuckPage',
+                                                      (route) => false);
                                               Navigator.of(context).pop;
                                             }),
-                                        SizedBox(width: 20),
-                                        Text(
+                                        const SizedBox(width: 20),
+                                        const Text(
                                           "Duck Duck Go",
                                           style: TextStyle(fontSize: 16),
                                         )
                                       ],
-                                    )
+                                    ),
+                                    Row(
+                                      children: [
+                                        Radio(
+                                            value: "b",
+                                            groupValue:
+                                                Provider.of<ConnectProvider>(
+                                                        context)
+                                                    .radio,
+                                            onChanged: (val) {
+                                              Provider.of<ConnectProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .ChangeRadio(val!);
+
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'Brave',
+                                                      (route) => false);
+                                              Navigator.of(context).pop;
+                                            }),
+                                        const SizedBox(width: 20),
+                                        const Text(
+                                          "Brave",
+                                          style: TextStyle(fontSize: 16),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -171,7 +204,7 @@ class _BingPageState extends State<BingPage> {
                           ),
                         );
                       },
-                      child: Row(
+                      child: const Row(
                         children: [
                           Icon(Icons.screen_search_desktop_outlined),
                           SizedBox(width: 20),
@@ -188,40 +221,40 @@ class _BingPageState extends State<BingPage> {
           IconButton(
               onPressed: () async {
                 await inAppWebViewController?.loadUrl(
-                    urlRequest:
-                        URLRequest(url: Uri.parse("https://www.bing.com/")));
+                    urlRequest: URLRequest(
+                        url: Uri.parse("https://in.search.yahoo.com/")));
               },
-              icon: Icon(Icons.home)),
+              icon: const Icon(Icons.home)),
           IconButton(
               onPressed: () async {
                 Map<String, dynamic> item = {
-                  "Name": "Bing",
-                  "Url": "https://www.bing.com/",
+                  "Name": "Yahoo",
+                  "Url": "https://in.search.yahoo.com/",
                 };
 
                 bookMarkList.add(item);
                 print(bookMarkList);
               },
-              icon: Icon(Icons.bookmark_add)),
+              icon: const Icon(Icons.bookmark_add)),
           IconButton(
               onPressed: () async {
                 if (await inAppWebViewController!.canGoBack()) {
                   inAppWebViewController?.goBack();
                 }
               },
-              icon: Icon(Icons.arrow_back_ios_new)),
+              icon: const Icon(Icons.arrow_back_ios_new)),
           IconButton(
               onPressed: () async {
                 await inAppWebViewController?.reload();
               },
-              icon: Icon(Icons.refresh)),
+              icon: const Icon(Icons.refresh)),
           IconButton(
               onPressed: () async {
                 if (await inAppWebViewController!.canGoForward()) {
                   inAppWebViewController?.goForward();
                 }
               },
-              icon: Icon(Icons.arrow_forward_ios)),
+              icon: const Icon(Icons.arrow_forward_ios)),
         ],
       ),
       body: StreamBuilder(
@@ -232,7 +265,7 @@ class _BingPageState extends State<BingPage> {
                 ? Center(
                     child: InAppWebView(
                       initialUrlRequest: URLRequest(
-                        url: Uri.parse("https://www.bing.com/"),
+                        url: Uri.parse("https://in.search.yahoo.com/"),
                       ),
                       onLoadStart: (controller, uri) {
                         setState(() {
@@ -243,19 +276,13 @@ class _BingPageState extends State<BingPage> {
                     ),
                   )
                 : Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Image(
-                            image: AssetImage("assets/dog.jpeg"),
-                          ),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        child: const Image(
+                          image: AssetImage(
+                              "lib/utils/Assets/Internet-Access-Error.png"),
                         ),
-                        Container(
-                          child: Image(
-                            image: AssetImage("assets/1.png"),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
       ),

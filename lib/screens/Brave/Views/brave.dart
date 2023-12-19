@@ -1,19 +1,18 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:goverment_service_app/Provider/Connect_Provider.dart';
 import 'package:goverment_service_app/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class DuckDuckPage extends StatefulWidget {
-  const DuckDuckPage({super.key});
+class Brave extends StatefulWidget {
+  const Brave({super.key});
 
   @override
-  State<DuckDuckPage> createState() => _DuckDuckPageState();
+  State<Brave> createState() => _BraveState();
 }
 
-class _DuckDuckPageState extends State<DuckDuckPage> {
+class _BraveState extends State<Brave> {
   InAppWebViewController? inAppWebViewController;
 
   String? group;
@@ -70,7 +69,7 @@ class _DuckDuckPageState extends State<DuckDuckPage> {
                               title: Text("Search Engine"),
                               alignment: Alignment.center,
                               content: Container(
-                                height: 200,
+                                height: 300,
                                 width: 400,
                                 child: Column(
                                   children: [
@@ -113,10 +112,7 @@ class _DuckDuckPageState extends State<DuckDuckPage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
-                                              Navigator.of(context)
-                                                  .pushNamedAndRemoveUntil(
-                                                      'YahooPage',
-                                                      (route) => false);
+
                                               Navigator.of(context).pop;
                                             }),
                                         SizedBox(width: 20),
@@ -139,6 +135,7 @@ class _DuckDuckPageState extends State<DuckDuckPage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
+
                                               Navigator.of(context)
                                                   .pushNamedAndRemoveUntil(
                                                       'BingPage',
@@ -165,6 +162,10 @@ class _DuckDuckPageState extends State<DuckDuckPage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'DuckDuckPage',
+                                                      (route) => false);
                                               Navigator.of(context).pop;
                                             }),
                                         SizedBox(width: 20),
@@ -173,7 +174,34 @@ class _DuckDuckPageState extends State<DuckDuckPage> {
                                           style: TextStyle(fontSize: 16),
                                         )
                                       ],
-                                    )
+                                    ),
+                                    Row(
+                                      children: [
+                                        Radio(
+                                            value: "b",
+                                            groupValue:
+                                                Provider.of<ConnectProvider>(
+                                                        context)
+                                                    .radio,
+                                            onChanged: (val) {
+                                              Provider.of<ConnectProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .ChangeRadio(val!);
+
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'Brave',
+                                                      (route) => false);
+                                              Navigator.of(context).pop;
+                                            }),
+                                        SizedBox(width: 20),
+                                        Text(
+                                          "Brave",
+                                          style: TextStyle(fontSize: 16),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -198,15 +226,15 @@ class _DuckDuckPageState extends State<DuckDuckPage> {
           IconButton(
               onPressed: () async {
                 await inAppWebViewController?.loadUrl(
-                    urlRequest:
-                        URLRequest(url: Uri.parse("https://duckduckgo.com/")));
+                    urlRequest: URLRequest(
+                        url: Uri.parse("https://search.brave.com/")));
               },
               icon: Icon(Icons.home)),
           IconButton(
               onPressed: () async {
                 Map<String, dynamic> item = {
                   "Name": "Duck Duck Go",
-                  "Url": "https://duckduckgo.com/",
+                  "Url": "https://search.brave.com/",
                 };
 
                 bookMarkList.add(item);
@@ -242,7 +270,7 @@ class _DuckDuckPageState extends State<DuckDuckPage> {
                 ? Center(
                     child: InAppWebView(
                       initialUrlRequest: URLRequest(
-                        url: Uri.parse("https://duckduckgo.com/"),
+                        url: Uri.parse("https://search.brave.com/"),
                       ),
                       onLoadStart: (controller, uri) {
                         setState(() {
@@ -253,19 +281,13 @@ class _DuckDuckPageState extends State<DuckDuckPage> {
                     ),
                   )
                 : Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Image(
-                            image: AssetImage("assets/dog.jpeg"),
-                          ),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        child: Image(
+                          image: AssetImage(
+                              "lib/utils/Assets/Internet-Access-Error.png"),
                         ),
-                        Container(
-                          child: Image(
-                            image: AssetImage("assets/1.png"),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
       ),

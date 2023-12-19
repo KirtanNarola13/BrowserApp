@@ -1,5 +1,4 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:goverment_service_app/Provider/Connect_Provider.dart';
@@ -66,7 +65,7 @@ class _HomePageState extends State<HomePage> {
                               title: Text("Search Engine"),
                               alignment: Alignment.center,
                               content: Container(
-                                height: 200,
+                                height: 300,
                                 width: 400,
                                 child: Column(
                                   children: [
@@ -83,6 +82,10 @@ class _HomePageState extends State<HomePage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
+
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      '/', (route) => false);
                                               Navigator.of(context).pop;
                                             }),
                                         SizedBox(width: 20),
@@ -92,38 +95,28 @@ class _HomePageState extends State<HomePage> {
                                         )
                                       ],
                                     ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Navigator.of(context)
-                                            .pushNamedAndRemoveUntil(
-                                                'YahooPage', (route) => false);
-                                      },
-                                      child: Row(
-                                        children: [
-                                          Radio(
-                                              value: "a",
-                                              groupValue:
-                                                  Provider.of<ConnectProvider>(
-                                                          context)
-                                                      .radio,
-                                              onChanged: (val) {
+                                    Row(
+                                      children: [
+                                        Radio(
+                                            value: "a",
+                                            groupValue:
                                                 Provider.of<ConnectProvider>(
-                                                        context,
-                                                        listen: false)
-                                                    .ChangeRadio(val!);
-                                                Navigator.of(context)
-                                                    .pushNamedAndRemoveUntil(
-                                                        'YahooPage',
-                                                        (route) => false);
-                                                Navigator.of(context).pop;
-                                              }),
-                                          SizedBox(width: 20),
-                                          Text(
-                                            "Yahoo",
-                                            style: TextStyle(fontSize: 16),
-                                          )
-                                        ],
-                                      ),
+                                                        context)
+                                                    .radio,
+                                            onChanged: (val) {
+                                              Provider.of<ConnectProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .ChangeRadio(val!);
+
+                                              Navigator.of(context).pop;
+                                            }),
+                                        SizedBox(width: 20),
+                                        Text(
+                                          "Yahoo",
+                                          style: TextStyle(fontSize: 16),
+                                        )
+                                      ],
                                     ),
                                     Row(
                                       children: [
@@ -138,7 +131,11 @@ class _HomePageState extends State<HomePage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
-                                              Navigator.of(context).pushNamedAndRemoveUntil('BingPage', (route) => false);
+
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'BingPage',
+                                                      (route) => false);
                                               Navigator.of(context).pop;
                                             }),
                                         SizedBox(width: 20),
@@ -161,7 +158,10 @@ class _HomePageState extends State<HomePage> {
                                                       context,
                                                       listen: false)
                                                   .ChangeRadio(val!);
-                                              Navigator.of(context).pushNamedAndRemoveUntil('DuckDuckPage', (route) => false);
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'DuckDuckPage',
+                                                      (route) => false);
                                               Navigator.of(context).pop;
                                             }),
                                         SizedBox(width: 20),
@@ -170,7 +170,34 @@ class _HomePageState extends State<HomePage> {
                                           style: TextStyle(fontSize: 16),
                                         )
                                       ],
-                                    )
+                                    ),
+                                    Row(
+                                      children: [
+                                        Radio(
+                                            value: "b",
+                                            groupValue:
+                                                Provider.of<ConnectProvider>(
+                                                        context)
+                                                    .radio,
+                                            onChanged: (val) {
+                                              Provider.of<ConnectProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .ChangeRadio(val!);
+
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'Brave',
+                                                      (route) => false);
+                                              Navigator.of(context).pop;
+                                            }),
+                                        SizedBox(width: 20),
+                                        Text(
+                                          "Brave",
+                                          style: TextStyle(fontSize: 16),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -249,19 +276,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   )
                 : Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Image(
-                            image: AssetImage("assets/dog.jpeg"),
-                          ),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        child: Image(
+                          image: AssetImage(
+                              "lib/utils/Assets/Internet-Access-Error.png                                             "),
                         ),
-                        Container(
-                          child: Image(
-                            image: AssetImage("assets/1.png"),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
       ),

@@ -1,19 +1,18 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:goverment_service_app/Provider/Connect_Provider.dart';
 import 'package:goverment_service_app/utils/utils.dart';
 import 'package:provider/provider.dart';
 
-class YahooPage extends StatefulWidget {
-  const YahooPage({super.key});
+class BingPage extends StatefulWidget {
+  const BingPage({super.key});
 
   @override
-  State<YahooPage> createState() => _YahooPageState();
+  State<BingPage> createState() => _BingPageState();
 }
 
-class _YahooPageState extends State<YahooPage> {
+class _BingPageState extends State<BingPage> {
   InAppWebViewController? inAppWebViewController;
 
   String? group;
@@ -65,7 +64,7 @@ class _YahooPageState extends State<YahooPage> {
                               title: Text("Search Engine"),
                               alignment: Alignment.center,
                               content: Container(
-                                height: 200,
+                                height: 300,
                                 width: 400,
                                 child: Column(
                                   children: [
@@ -170,7 +169,34 @@ class _YahooPageState extends State<YahooPage> {
                                           style: TextStyle(fontSize: 16),
                                         )
                                       ],
-                                    )
+                                    ),
+                                    Row(
+                                      children: [
+                                        Radio(
+                                            value: "b",
+                                            groupValue:
+                                                Provider.of<ConnectProvider>(
+                                                        context)
+                                                    .radio,
+                                            onChanged: (val) {
+                                              Provider.of<ConnectProvider>(
+                                                      context,
+                                                      listen: false)
+                                                  .ChangeRadio(val!);
+
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil(
+                                                      'Brave',
+                                                      (route) => false);
+                                              Navigator.of(context).pop;
+                                            }),
+                                        SizedBox(width: 20),
+                                        Text(
+                                          "Brave",
+                                          style: TextStyle(fontSize: 16),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
@@ -195,15 +221,15 @@ class _YahooPageState extends State<YahooPage> {
           IconButton(
               onPressed: () async {
                 await inAppWebViewController?.loadUrl(
-                    urlRequest: URLRequest(
-                        url: Uri.parse("https://in.search.yahoo.com/")));
+                    urlRequest:
+                        URLRequest(url: Uri.parse("https://www.bing.com/")));
               },
               icon: Icon(Icons.home)),
           IconButton(
               onPressed: () async {
                 Map<String, dynamic> item = {
-                  "Name": "Yahoo",
-                  "Url": "https://in.search.yahoo.com/",
+                  "Name": "Bing",
+                  "Url": "https://www.bing.com/",
                 };
 
                 bookMarkList.add(item);
@@ -239,7 +265,7 @@ class _YahooPageState extends State<YahooPage> {
                 ? Center(
                     child: InAppWebView(
                       initialUrlRequest: URLRequest(
-                        url: Uri.parse("https://in.search.yahoo.com/"),
+                        url: Uri.parse("https://www.bing.com/"),
                       ),
                       onLoadStart: (controller, uri) {
                         setState(() {
@@ -250,19 +276,13 @@ class _YahooPageState extends State<YahooPage> {
                     ),
                   )
                 : Center(
-                    child: Column(
-                      children: [
-                        Container(
-                          child: Image(
-                            image: AssetImage("assets/dog.jpeg"),
-                          ),
+                    child: SingleChildScrollView(
+                      child: Container(
+                        child: Image(
+                          image: AssetImage(
+                              "lib/utils/Assets/Internet-Access-Error.png"),
                         ),
-                        Container(
-                          child: Image(
-                            image: AssetImage("assets/1.png"),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
       ),
